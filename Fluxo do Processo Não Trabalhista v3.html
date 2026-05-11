@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)file:///C:/Users/bianca.passos/Downloads/Fluxo_Nao_Trabalhista_v5%20(3).html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluxo do Processo Não Trabalhista v3</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #F0F4F3; min-height: 100vh; padding: 24px; }
+.container { max-width: 920px; margin: 0 auto; }
+.header { background: linear-gradient(135deg,#1A4731 0%,#2D6A4F 100%); border-radius: 12px; padding: 28px 32px; margin-bottom: 16px; color:#fff; }
+.header-sub { font-size:11px; font-weight:700; letter-spacing:2px; opacity:.7; margin-bottom:6px; }
+.header-title { font-size:24px; font-weight:800; margin-bottom:6px; }
+.header-desc { font-size:13px; opacity:.8; margin-bottom:12px; }
+.header-natures { display:flex; flex-wrap:wrap; gap:6px; }
+.nature-tag { padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35); color:#fff; }
+.legend-box { background:#fff; border-radius:10px; padding:14px 16px; margin-bottom:12px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+.legend-title { font-weight:700; font-size:11px; color:#1A4731; margin-bottom:8px; letter-spacing:.5px; }
+.legend-items { display:flex; flex-wrap:wrap; gap:6px; }
+.badge { display:inline-block; padding:3px 9px; border-radius:4px; font-weight:700; font-size:10px; border-width:1.5px; border-style:solid; }
+.controls { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+.btn { padding:7px 16px; border-radius:6px; font-weight:600; font-size:12px; cursor:pointer; border:1.5px solid #1A4731; transition:all .15s; }
+.btn-primary { background:#1A4731; color:#fff; }
+.btn-secondary { background:#fff; color:#1A4731; }
+.btn:hover { opacity:.82; }
+.phase-card { border-radius:10px; border-width:2px; border-style:solid; overflow:hidden; margin-bottom:8px; box-shadow:0 2px 6px rgba(0,0,0,.08); }
+.phase-header { padding:12px 18px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; user-select:none; }
+.phase-label { color:#fff; font-weight:800; font-size:10px; letter-spacing:1px; opacity:.85; margin-bottom:2px; }
+.phase-title { color:#fff; font-weight:700; font-size:14px; }
+.chevron { color:#fff; font-size:15px; transition:transform .2s; flex-shrink:0; }
+.chevron.open { transform:rotate(180deg); }
+.phase-body { padding:12px; display:none; }
+.phase-body.open { display:block; }
+.step { display:flex; gap:8px; padding:8px 11px; border-radius:7px; margin-bottom:6px; align-items:flex-start; }
+.step-normal    { background:#FAFAFA; border:1px solid #E0E0E0; }
+.step-financial { background:#FFFDE7; border:1.5px solid #F5A623; }
+.step-meta      { background:#FDEDEC; border:1.5px solid #C0392B; }
+.step-acordo    { background:#E8F8F0; border:1.5px solid #27AE60; }
+.step-favorable { background:#EAF4FB; border:1.5px solid #1B6CA8; }
+.step-num { min-width:22px; height:22px; border-radius:50%; color:#fff; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; margin-top:2px; }
+.step-content { flex:1; }
+.step-actor { display:inline-block; padding:2px 7px; border-radius:4px; font-weight:700; font-size:10px; margin-bottom:3px; border-width:1.5px; border-style:solid; }
+.step-text { font-size:12px; color:#2C3E50; line-height:1.55; }
+.step-text-meta { color:#C0392B; font-weight:700; }
+.note-box { margin:6px 0 8px 0; padding:7px 11px; border-left:3px solid; border-radius:4px; font-size:11px; font-weight:600; line-height:1.5; }
+.note-green { background:#E8F8F0; border-color:#27AE60; color:#145A32; }
+.note-amber { background:#FDF3E3; border-color:#E67E22; color:#784212; }
+.note-blue  { background:#EAF4FB; border-color:#1B6CA8; color:#154360; }
+.footer-alert { margin-top:16px; padding:13px 17px; background:#FDEDEC; border:1.5px solid #C0392B; border-radius:8px; font-size:12px; color:#C0392B; font-weight:600; line-height:1.6; }
+.a-ctrl  { background:#FEF3DC; border-color:#F5A623; color:#7D4500; }
+.a-escr  { background:#EBF1FD; border-color:#2D6BE4; color:#1A3E8F; }
+.a-adv   { background:#E8F8F0; border-color:#27AE60; color:#145A32; }
+.a-reg   { background:#F5EEF8; border-color:#8E44AD; color:#4A235A; }
+.a-cont  { background:#FDF0E1; border-color:#E67E22; color:#784212; }
+.a-juiz  { background:#EAEDED; border-color:#7F8C8D; color:#2C3E50; }
+.a-multi { background:#D6EAF8; border-color:#1B6CA8; color:#154360; }
+.a-meta  { background:#FFD5D5; border-color:#C0392B; color:#C0392B; }
+.a-any   { background:#F2F3F4; border-color:#95A5A6; color:#2C3E50; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="header-sub">JURÍDICO NÃO TRABALHISTA — VERSÃO 5.0</div>
+  <div class="header-title">Fluxo do Processo Não Trabalhista</div>
+  <div class="header-desc">Da citação ao arquivamento — visão para o Planejamento Estratégico</div>
+  <div class="header-natures">
+    <span class="nature-tag">⚖️ Cível</span><span class="nature-tag">🛒 Consumidor</span>
+    <span class="nature-tag">📋 Regulatório</span><span class="nature-tag">🌿 Ambiental</span>
+    <span class="nature-tag">🧾 Tributário</span><span class="nature-tag">💳 Recuperação de Crédito</span>
+  </div>
+</div>
+
+<div class="legend-box">
+  <div class="legend-title">ATORES DO PROCESSO</div>
+  <div class="legend-items">
+    <span class="badge a-ctrl">Controladoria Jurídica</span>
+    <span class="badge a-escr">Escritório</span>
+    <span class="badge a-adv">Advogado Interno</span>
+    <span class="badge a-reg">Regional</span>
+    <span class="badge a-cont">Contador</span>
+    <span class="badge a-juiz">Juízo / TJ / STJ / STF</span>
+    <span class="badge a-multi">Escritório + Adv. Interno</span>
+    <span class="badge a-meta">⚠️ META (lacuna)</span>
+    <span class="badge" style="background:#FFFDE7;border:1.5px solid #F5A623;color:#7D5700;">💰 Impacto Financeiro</span>
+    <span class="badge" style="background:#E8F8F0;border:1.5px solid #27AE60;color:#145A32;">🤝 Acordo (Consumidor)</span>
+    <span class="badge" style="background:#EAF4FB;border:1.5px solid #1B6CA8;color:#154360;">✅ Decisão Favorável</span>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn btn-primary" onclick="expandAll()">Expandir Tudo</button>
+  <button class="btn btn-secondary" onclick="collapseAll()">Recolher Tudo</button>
+</div>
+
+<!-- FASE 0 -->
+<div class="phase-card" style="border-color:#1A4731;">
+  <div class="phase-header" style="background:#1A4731;" onclick="toggle(&#39;f0&#39;)">
+    <div><div class="phase-label">FASE 0</div><div class="phase-title">Recebimento e Cadastro do Processo</div></div>
+    <div class="chevron" id="chev-f0">▼</div>
+  </div>
+  <div class="phase-body" id="f0" style="background:#D5F5E3;">
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">1</div><div class="step-content"><span class="step-actor a-ctrl">Controladoria Jurídica</span><div class="step-text">Recebe a citação/intimação via: notificação digital, captura automática pelo Projuris, Domicílio Judicial Eletrônico (DJE) ou carta física (AR — enviada à sede ou à regional)</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">2</div><div class="step-content"><span class="step-actor a-ctrl">Controladoria Jurídica</span><div class="step-text">Efetua o cadastro, inclui o documento no Projuris, define a <strong>natureza do processo</strong> (Cível, Consumidor, Regulatório, Ambiental, Tributário ou Recuperação de Crédito) e dispara providências automáticas ao Escritório, Advogado Interno e Regional</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">3</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Complementa os dados cadastrais no Projuris: preenche a <strong>causa raiz</strong> e demais informações iniciais do processo</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">4</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Valida os dados cadastrais: verifica existência de escritório parceiro, se a Regional está correta e demais dados do processo</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">5</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Quando necessário, abre <strong>"Diligências Prévias"</strong> no Projuris: verificação de fraude, revisão cadastral, criticidade de consumo ou perícia em hidrômetro (Consumidor)</div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#1A4731">6</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">💰 Elabora o cálculo dos pedidos do autor e lança a contingência inicial no Projuris — <strong>prazo: 30 dias após o cadastro</strong></div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#1A4731">7</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">💰 Fiscaliza se a contingência foi atualizada corretamente dentro do prazo de 30 dias</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 0B — SUBSÍDIOS -->
+<div class="phase-card" style="border-color:#1A6B3C;">
+  <div class="phase-header" style="background:#1A6B3C;" onclick="toggle(&#39;f0b&#39;)">
+    <div><div class="phase-label">FASE 0B</div><div class="phase-title">Instrução: Análise de Subsídios</div></div>
+    <div class="chevron" id="chev-f0b">▼</div>
+  </div>
+  <div class="phase-body" id="f0b" style="background:#D5F5E3;">
+    <div class="note-box note-amber">⚠️ Esta fase precede a avaliação de acordo (Fase 1A) — o Escritório precisa dos subsídios para analisar se houve falha da empresa antes de propor acordo.</div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A6B3C">1</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Solicita subsídios no sistema Projuris — <strong>3 opções de prazo: 5, 10 ou 20 dias úteis</strong>, conforme urgência do processo</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A6B3C">2</div><div class="step-content"><span class="step-actor a-reg">Regional</span><div class="step-text">Busca no sistema <strong>SCAE</strong> a solicitação de subsídios e levanta documentos e informações operacionais pertinentes</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A6B3C">3</div><div class="step-content"><span class="step-actor a-reg">Regional</span><div class="step-text">Verifica se há documentos complementares faltantes e realiza busca de eventual documento adicional antes do envio</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A6B3C">4</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Recebe a documentação e verifica se os subsídios estão em conformidade com o solicitado</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A6B3C">5</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Se subsídios em atraso: abre requisição de <strong>"subsídios em atraso"</strong> no Projuris e solicita apoio ao Advogado Interno para cobrar a Regional</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A6B3C">6</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Monitora os casos sem subsídios — recebe <strong>relatório semanal</strong> do Escritório com processos sem subsídios e com fatal de defesa nos próximos 15 dias — e aciona formalmente a Regional</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A6B3C">7</div><div class="step-content"><span class="step-actor a-reg">Regional</span><div class="step-text">Disponibiliza documentação faltante após acionamento do Advogado Interno</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A6B3C">8</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Confirma recebimento dos subsídios em conformidade</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 1A — ACORDO INICIAL -->
+<div class="phase-card" style="border-color:#1D8348;">
+  <div class="phase-header" style="background:#1D8348;" onclick="toggle(&#39;f1a&#39;)">
+    <div><div class="phase-label">FASE 1A • APENAS CONSUMIDOR</div><div class="phase-title">🤝 Avaliação de Acordo Inicial — Pós-Ajuizamento</div></div>
+    <div class="chevron" id="chev-f1a">▼</div>
+  </div>
+  <div class="phase-body" id="f1a" style="background:#D5F5E3;">
+    <div class="note-box note-green">🛒 Exclusiva dos processos <strong>Consumidor</strong>. Ocorre após a análise dos subsídios (Fase 0B).</div>
+    <div class="step step-normal"><div class="step-num" style="background:#1D8348">1</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">🤝 Com base nos subsídios recebidos, pedidos e análise de risco, avalia a viabilidade de propor acordo</div></div></div>
+    <div class="step step-acordo"><div class="step-num" style="background:#27AE60">2</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">🤝 Sugere o valor do acordo e lança requisição de solicitação de acordo no sistema Projuris</div></div></div>
+    <div class="step step-acordo"><div class="step-num" style="background:#27AE60">3</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">🤝 Analisa a proposta de acordo e aprova ou rejeita a requisição</div></div></div>
+    <div class="step step-acordo"><div class="step-num" style="background:#27AE60">4</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">🤝 Se aprovado: negocia, providencia o cumprimento, formaliza e acompanha → somente após confirmação vai para Arquivamento (Fase 7). Se rejeitado: segue para instrução</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 1B — AUDIÊNCIA DE CONCILIAÇÃO -->
+<div class="phase-card" style="border-color:#1A5276;">
+  <div class="phase-header" style="background:#1A5276;" onclick="toggle(&#39;f1b_conc&#39;)">
+    <div><div class="phase-label">FASE 1B • QUANDO APLICÁVEL</div><div class="phase-title">Instrução: Audiência de Conciliação</div></div>
+    <div class="chevron" id="chev-f1b_conc">▼</div>
+  </div>
+  <div class="phase-body" id="f1b_conc" style="background:#D6EAF8;">
+    <div class="note-box note-blue">ℹ️ Ocorre <strong>antes</strong> da elaboração da defesa (Fase 1C). Não há testemunha. Nos casos simples (Consumidor), o preposto é contratado pelo Escritório; nos estratégicos ambientais, solicita-se área técnica ao Advogado Interno e à Regional em conjunto. <strong>Não há análise de perda real nesta fase.</strong></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A5276">1</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Identifica a audiência de conciliação e agenda no sistema Projuris</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A5276">2</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Nos <strong>casos simples (Consumidor)</strong>: contrata diretamente o preposto para representar a companhia. Nos <strong>casos estratégicos ambientais</strong>: solicita indicação de alguém da área técnica ao Advogado Interno e à Regional — a análise da indicação se dá em conjunto</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A5276">3</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Monitora se o preposto ou técnico foi indicado/contratado no prazo e verifica se a audiência já foi cadastrada no Projuris; se não, envia requisição ao Escritório para cadastrar. <strong>Nos casos ambientais, o Advogado Interno participa da audiência.</strong></div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A5276">4</div><div class="step-content"><span class="step-actor a-multi">Escritório + Adv. Interno</span><div class="step-text">Para os <strong>casos estratégicos (ambientais)</strong>: reunião de alinhamento com a área técnica antes da audiência de conciliação</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A5276">5</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Realiza a Audiência de Conciliação — Advogado Interno comparece nos casos de maior relevância</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A5276">6</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Após a audiência: verifica a ata e alinha os próximos passos com o Escritório. Havendo qualquer pendência, envia requisição ao Escritório solicitando as providências</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 1C — DEFESA -->
+<div class="phase-card" style="border-color:#145A32;">
+  <div class="phase-header" style="background:#145A32;" onclick="toggle(&#39;f1c_def&#39;)">
+    <div><div class="phase-label">FASE 1C</div><div class="phase-title">Instrução: Elaboração e Validação da Defesa</div></div>
+    <div class="chevron" id="chev-f1c_def">▼</div>
+  </div>
+  <div class="phase-body" id="f1c_def" style="background:#A9DFBF;">
+    <div class="step step-normal"><div class="step-num" style="background:#145A32">1</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Elabora a contestação com base nos subsídios recebidos da Regional</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#145A32">2</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Revisa a defesa elaborada: <strong>casos estratégicos</strong> têm revisão integral de todas as defesas; <strong>casos não estratégicos</strong> são revisados por amostragem</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#145A32">3</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Protocola a contestação dentro do prazo processual</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 1D — PERÍCIA -->
+<div class="phase-card" style="border-color:#7D6608;">
+  <div class="phase-header" style="background:#7D6608;" onclick="toggle(&#39;f1d_per&#39;)">
+    <div><div class="phase-label">FASE 1D • QUANDO APLICÁVEL</div><div class="phase-title">Instrução: Perícia Técnica</div></div>
+    <div class="chevron" id="chev-f1d_per">▼</div>
+  </div>
+  <div class="phase-body" id="f1d_per" style="background:#FCF3CF;">
+    <div class="note-box note-amber">📋 Ocorre em processos <strong>Ambientais, Regulatórios, Cíveis</strong> e <strong>Consumidor</strong> (especialmente casos de análise de hidrômetro).</div>
+    <div class="step step-normal"><div class="step-num" style="background:#7D6608">1</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Identifica necessidade de perícia designada pelo juízo, <strong>comunica o Advogado Interno para eventual alinhamento</strong> e realiza o agendamento</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#7D6608">2</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Solicita à Regional a indicação do <strong>assistente técnico</strong> e, quando necessário, do preposto</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#7D6608">3</div><div class="step-content"><span class="step-actor a-reg">Regional</span><div class="step-text">Indica o assistente técnico para acompanhar a perícia</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#7D6608">4</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Monitora se a Regional está fornecendo as indicações dentro do prazo e se manifesta quanto às indicações e alinhamentos necessários</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#7D6608">5</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Quando o assistente técnico não for indicado pela Regional ou não estiver disponível, contrata fornecedor especializado conforme o tipo de perícia</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#7D6608">6</div><div class="step-content"><span class="step-actor a-multi">Escritório + Adv. Interno + Indicados</span><div class="step-text">Reunião preparatória: prepara o assistente técnico — Advogado Interno participa principalmente nos casos <strong>ambientais, regulatórios, cíveis</strong> e conforme relevância</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#7D6608">7</div><div class="step-content"><span class="step-actor a-multi">Regional + Assistente Técnico + Adv. Interno (a depender)</span><div class="step-text">Comparece à perícia representando a companhia perante o perito do juízo</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 1E — AUDIÊNCIA DE INSTRUÇÃO -->
+<div class="phase-card" style="border-color:#154360;">
+  <div class="phase-header" style="background:#154360;" onclick="toggle(&#39;f1e&#39;)">
+    <div><div class="phase-label">FASE 1E • QUANDO APLICÁVEL</div><div class="phase-title">Instrução: Audiência de Instrução</div></div>
+    <div class="chevron" id="chev-f1e">▼</div>
+  </div>
+  <div class="phase-body" id="f1e" style="background:#D6EAF8;">
+    <div class="note-box note-blue">ℹ️ Ocorre após a Audiência de Conciliação (Fase 1B) quando não há acordo. Pode haver testemunha quando cabível. Reunião de alinhamento <strong>apenas para casos estratégicos</strong>.</div>
+    <div class="step step-normal"><div class="step-num" style="background:#154360">1</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Identifica a audiência de instrução e agenda no sistema Projuris</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#154360">2</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Solicita indicação de preposto à Regional e indicação de alguém da área técnica. Quando cabível, solicita indicação de eventual testemunha</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#154360">3</div><div class="step-content"><span class="step-actor a-reg">Regional</span><div class="step-text">Indica o preposto, a área técnica e eventual testemunha para a audiência de instrução. <strong>Nos casos ambientais com indicação de área técnica, o Advogado Interno sempre participa e alinha a indicação em conjunto.</strong></div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#154360">4</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Monitora se a Regional forneceu a indicação no prazo e verifica se a audiência já foi cadastrada no Projuris; se não, envia requisição ao Escritório para cadastrar</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#154360">5</div><div class="step-content"><span class="step-actor a-multi">Escritório + Adv. Interno</span><div class="step-text">Para os <strong>casos estratégicos</strong>: reunião de alinhamento com o preposto ou área técnica antes da audiência de instrução</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#154360">6</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Realiza a Audiência de Instrução — Advogado Interno comparece nos casos de maior relevância (especialmente ambiental)</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#154360">7</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Após a audiência: verifica a ata e alinha os próximos passos com o Escritório. Havendo qualquer pendência, envia requisição ao Escritório solicitando as providências necessárias</div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#154360">8</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">💰 Informa a perda real do processo após a audiência — análise interna para fins de projeções financeiras</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#154360">9</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Monitora se o Escritório está informando a perda real e identifica processos relevantes para escalada à gerência e diretoria</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 2 — SENTENÇA -->
+<div class="phase-card" style="border-color:#922B21;">
+  <div class="phase-header" style="background:#922B21;" onclick="toggle(&#39;f2&#39;)">
+    <div><div class="phase-label">FASE 2</div><div class="phase-title">Sentença — 1ª Instância e Análise de Decisões</div></div>
+    <div class="chevron" id="chev-f2">▼</div>
+  </div>
+  <div class="phase-body" id="f2" style="background:#FADBD8;">
+    <div class="step step-normal"><div class="step-num" style="background:#922B21">1</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Toma ciência da sentença, verifica o conteúdo da decisão no Projuris e envia requisição ao Advogado Interno informando o resultado com detalhamento: <strong>favorável, desfavorável ou parcialmente favorável</strong></div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#922B21">2</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">💰 Informa a perda real do processo na sentença — análise interna para fins de projeções financeiras</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#922B21">3</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Confirma a mudança de fase, a classificação de risco (<strong>possível, remoto ou provável — CPC 25</strong>) e valida se a classificação da decisão está correta no sistema</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#922B21">4</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Monitora se o Escritório está informando a perda real e destaca processos relevantes para escalada à gerência e diretoria</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 2B — FAVORÁVEL -->
+<div class="phase-card" style="border-color:#1B6CA8;">
+  <div class="phase-header" style="background:#1B6CA8;" onclick="toggle(&#39;f2b&#39;)">
+    <div><div class="phase-label">FASE 2B • APENAS CONSUMIDOR</div><div class="phase-title">✅ Procedimentos Pós-Sentença Favorável</div></div>
+    <div class="chevron" id="chev-f2b">▼</div>
+  </div>
+  <div class="phase-body" id="f2b" style="background:#EAF4FB;">
+    <div class="note-box note-blue">✅ Aplica-se quando a decisão de mérito é <strong>favorável à companhia</strong> em processos Consumidor.</div>
+    <div class="step step-favorable"><div class="step-num" style="background:#1B6CA8">1</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Verifica se há contrapedido ou reconvenção deferidos na decisão favorável e lança a informação no Projuris</div></div></div>
+    <div class="step step-favorable"><div class="step-num" style="background:#1B6CA8">2</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Se foi deferida reconvenção: solicita <strong>por e-mail</strong> ao Escritório que ingresse com cumprimento de sentença e altere a natureza contábil do processo para <strong>ativo</strong></div></div></div>
+    <div class="step step-favorable"><div class="step-num" style="background:#1B6CA8">3</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Verifica se há liminar deferida na decisão favorável e solicita a retirada do eventual bloqueio no sistema da comercial</div></div></div>
+    <div class="step step-favorable"><div class="step-num" style="background:#1B6CA8">4</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Acompanha e alinha as providências junto ao Escritório para retirada do bloqueio no sistema comercial</div></div></div>
+    <div class="step step-favorable"><div class="step-num" style="background:#1B6CA8">5</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Se <strong>não há contrapedido/reconvenção</strong>: solicita encerramento no Projuris → Arquivamento (Fase 7). Se <strong>há contrapedido/reconvenção</strong>: aguarda cobrança dos valores antes de encerrar</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 2C — LIMINARES -->
+<div class="phase-card" style="border-color:#117A65;">
+  <div class="phase-header" style="background:#117A65;" onclick="toggle(&#39;f2c&#39;)">
+    <div><div class="phase-label">FASE 2C • QUANDO APLICÁVEL</div><div class="phase-title">Monitoramento de Liminares</div></div>
+    <div class="chevron" id="chev-f2c">▼</div>
+  </div>
+  <div class="phase-body" id="f2c" style="background:#D1F2EB;">
+    <div class="note-box note-green">ℹ️ Atividade contínua. <strong>Qualquer ator</strong> (Controladoria, Escritório ou Advogado Interno) que tome conhecimento de liminar não cadastrada deve abrir o fluxo para a Regional cumprir.</div>
+    <div class="step step-normal"><div class="step-num" style="background:#117A65">1</div><div class="step-content"><span class="step-actor a-any">Controladoria / Escritório / Advogado Interno</span><div class="step-text">Ao tomar conhecimento de nova liminar: cadastra a requisição de cumprimento no Projuris para que a Regional execute</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#117A65">2</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Verifica e acompanha o cumprimento da liminar pela Regional</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#117A65">3</div><div class="step-content"><span class="step-actor a-reg">Regional</span><div class="step-text">Cumpre a liminar e envia documentos de suporte: prints de tela, comprovantes e documentos complementares</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#117A65">4</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Valida os documentos do cumprimento; se estão corretos, <strong>peticiona nos autos comprovando o cumprimento</strong></div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#117A65">5</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Confirma o cumprimento juntamente com o Escritório; se válidos: finaliza a requisição no Projuris. Se não válidos: solicita reabertura da requisição e reinicia o processo</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#117A65">6</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Se não cumpriu: verifica com a Regional via <strong>teams/e-mail</strong> a necessidade de apoio, aciona e acompanha até o cumprimento</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 2D — DESFAVORÁVEL -->
+<div class="phase-card" style="border-color:#7B241C;">
+  <div class="phase-header" style="background:#7B241C;" onclick="toggle(&#39;f2d&#39;)">
+    <div><div class="phase-label">FASE 2D • DECISÃO DESFAVORÁVEL</div><div class="phase-title">Procedimentos Pós-Sentença Desfavorável</div></div>
+    <div class="chevron" id="chev-f2d">▼</div>
+  </div>
+  <div class="phase-body" id="f2d" style="background:#FADBD8;">
+    <div class="note-box note-amber">⚠️ O Advogado Interno define a estratégia. O Escritório executa e abre as requisições necessárias.</div>
+    <div class="step step-normal"><div class="step-num" style="background:#7B241C">1</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Verifica se a condenação é em dinheiro e analisa se há dispensa de recurso cabível — avalia risco, valor e estratégia processual</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#7B241C">2</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Se há <strong>recurso a interpor</strong>: confirma as atualizações lançadas pelo Escritório no Projuris — fase, risco e lançamento de custas para pagamento</div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#7B241C">3</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">💰 Se há <strong>dispensa de recurso</strong> e valor acima de R$ 3.000: orienta o Escritório a aguardar o cumprimento de sentença — <strong>1 ano após trânsito em julgado</strong> (6 meses ativo + 6 meses baixa provisória)</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#7B241C">4</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Se não há condenação em dinheiro: verifica se há <strong>obrigação de fazer</strong>. O Advogado Interno envia e-mail solicitando o cumprimento às áreas responsáveis e orienta o Escritório a abrir a requisição no Projuris para cumprimento pela Regional</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#7B241C">5</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Se há obrigação de fazer: <strong>abre requisição de cumprimento no Projuris</strong> para a Regional executar e acompanha até a conclusão</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#7B241C">6</div><div class="step-content"><span class="step-actor a-reg">Regional</span><div class="step-text">Executa a obrigação de fazer e reporta o cumprimento ao Escritório</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#7B241C">7</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Acompanha o cumprimento da obrigação de fazer e solicita o encerramento do processo no Projuris após confirmação</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 2E — ACORDO PÓS-SENTENÇA -->
+<div class="phase-card" style="border-color:#1D8348;">
+  <div class="phase-header" style="background:#1D8348;" onclick="toggle(&#39;f2e&#39;)">
+    <div><div class="phase-label">FASE 2E • APENAS CONSUMIDOR</div><div class="phase-title">🤝 Avaliação de Acordo Pós-Sentença</div></div>
+    <div class="chevron" id="chev-f2e">▼</div>
+  </div>
+  <div class="phase-body" id="f2e" style="background:#D5F5E3;">
+    <div class="note-box note-green">🛒 Exclusiva dos processos <strong>Consumidor</strong> em que a companhia foi condenada e optou por tentar acordo antes de recorrer.</div>
+    <div class="step step-acordo"><div class="step-num" style="background:#27AE60">1</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">🤝 Avalia a viabilidade de acordo após sentença desfavorável, considerando valor da condenação e custo do recurso</div></div></div>
+    <div class="step step-acordo"><div class="step-num" style="background:#27AE60">2</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">🤝 Sugere o valor do acordo e lança requisição de solicitação de acordo no sistema Projuris</div></div></div>
+    <div class="step step-acordo"><div class="step-num" style="background:#27AE60">3</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">🤝 Analisa o cálculo, avalia risco x custo e aprova ou rejeita a proposta de acordo</div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#27AE60">4</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">💰 Se aprovado: negocia, formaliza, efetua pagamento e acompanha cumprimento → Arquivamento (Fase 7). Se rejeitado: segue para recurso (Fase 3)</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 3 -->
+<div class="phase-card" style="border-color:#784212;">
+  <div class="phase-header" style="background:#784212;" onclick="toggle(&#39;f3&#39;)">
+    <div><div class="phase-label">FASE 3</div><div class="phase-title">Protocolo do Recurso — 2ª Instância (TJ / Tribunal)</div></div>
+    <div class="chevron" id="chev-f3">▼</div>
+  </div>
+  <div class="phase-body" id="f3" style="background:#FDEBD0;">
+    <div class="step step-normal"><div class="step-num" style="background:#784212">1</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Aprova as custas necessárias para interposição do recurso e verifica se risco do processo está corretamente classificado</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#784212">2</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Elabora e interpõe o recurso (apelação ou recurso cabível) contra a sentença — nos <strong>processos estratégicos</strong>, o Advogado Interno valida as peças antes do protocolo</div></div></div>
+    <div class="step step-meta"><div class="step-num" style="background:#C0392B">3</div><div class="step-content"><span class="step-actor a-meta">⚠️ META — Advogado Interno</span><div class="step-text step-text-meta">LACUNA IDENTIFICADA: revisão do recurso pelo Advogado Interno antes do protocolo já é realizada nos casos estratégicos — meta é expandir para todos os casos não estratégicos</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#784212">4</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Elabora o cálculo da condenação atualizado com base na sentença</div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#784212">5</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">💰 Atualiza a contingência e o provisionamento do processo no sistema Projuris</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#784212">6</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Analisa o cálculo elaborado pelo Escritório e fiscaliza se a contingência foi atualizada corretamente</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 4 -->
+<div class="phase-card" style="border-color:#4A235A;">
+  <div class="phase-header" style="background:#4A235A;" onclick="toggle(&#39;f4&#39;)">
+    <div><div class="phase-label">FASE 4</div><div class="phase-title">2ª Instância — TJ / Tribunal</div></div>
+    <div class="chevron" id="chev-f4">▼</div>
+  </div>
+  <div class="phase-body" id="f4" style="background:#E8DAEF;">
+    <div class="step step-normal"><div class="step-num" style="background:#4A235A">1</div><div class="step-content"><span class="step-actor a-juiz">TJ / Tribunal</span><div class="step-text">Julga o recurso (apelação) e publica o acórdão</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#4A235A">2</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Toma ciência do acórdão, <strong>lança as atualizações de fase e resultado no Projuris</strong> e comunica ao Advogado Interno</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#4A235A">3</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Verifica se há necessidade de alteração de fase ou risco; se risco incorreto, solicita correção ao Escritório via requisição</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#4A235A">4</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Quando cabível, elabora e interpõe recurso especial (STJ) ou extraordinário (STF) — <strong>Advogado Interno participa dos alinhamentos por e-mail e valida os recursos</strong></div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#4A235A">5</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Aprova o pagamento das novas custas processuais do recurso</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#4A235A">6</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Elabora o cálculo atualizado com base no acórdão</div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#4A235A">7</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">💰 Lança o cálculo no sistema e atualiza o provisionamento do processo</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#4A235A">8</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Analisa o cálculo e valida se o provisionamento está correto</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 5 -->
+<div class="phase-card" style="border-color:#154360;">
+  <div class="phase-header" style="background:#154360;" onclick="toggle(&#39;f5&#39;)">
+    <div><div class="phase-label">FASE 5 • QUANDO CABÍVEL</div><div class="phase-title">3ª Instância — STJ / STF</div></div>
+    <div class="chevron" id="chev-f5">▼</div>
+  </div>
+  <div class="phase-body" id="f5" style="background:#D6EAF8;">
+    <div class="step step-normal"><div class="step-num" style="background:#154360">1</div><div class="step-content"><span class="step-actor a-juiz">STJ / STF</span><div class="step-text">Processo aguarda julgamento do recurso especial ou extraordinário — acompanhamento diário pelo Escritório no Projuris</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#154360">2</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Toma ciência da decisão definitiva e <strong>lança no Projuris a classificação do resultado: favorável, desfavorável ou parcialmente favorável</strong></div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#154360">3</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Elabora o cálculo da decisão definitiva e envia ao Advogado Interno para análise</div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#154360">4</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">💰 Atualiza a contingência e realiza o provisionamento final no sistema</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#154360">5</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Analisa o cálculo, valida o provisionamento final e <strong>alinha com o Escritório os próximos passos: tentativa de acordo ou aguardo de cumprimento de sentença</strong></div></div></div>
+  </div>
+</div>
+
+<!-- FASE 6 -->
+<div class="phase-card" style="border-color:#6E2C00;">
+  <div class="phase-header" style="background:#6E2C00;" onclick="toggle(&#39;f6&#39;)">
+    <div><div class="phase-label">FASE 6</div><div class="phase-title">Execução / Cumprimento de Sentença e Pagamento</div></div>
+    <div class="chevron" id="chev-f6">▼</div>
+  </div>
+  <div class="phase-body" id="f6" style="background:#FDEBD0;">
+    <div class="step step-normal"><div class="step-num" style="background:#6E2C00">1</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Comunica ao Advogado Interno que o processo foi perdido e informa o valor do cálculo (processos acima do valor de referência)</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#6E2C00">2</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Toma ciência e passa a acompanhar o processo de perto</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#6E2C00">3</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Elabora os cálculos ao longo da execução — nos casos estratégicos ou de maior complexidade, o Contador é acionado para suporte</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#6E2C00">4</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Aciona a Regional para levantamento de documentos necessários na execução, quando aplicável</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#6E2C00">5</div><div class="step-content"><span class="step-actor a-reg">Regional</span><div class="step-text">Levanta e envia a documentação solicitada</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#6E2C00">6</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Monitora se a Regional está fornecendo a documentação dentro do prazo</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#6E2C00">7</div><div class="step-content"><span class="step-actor a-juiz">Juízo</span><div class="step-text">Homologa o cálculo — define o valor a ser pago</div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#6E2C00">8</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">💰 Envia requisição de pagamento ao Advogado Interno, informando o tipo de pagamento: <strong>custas, garantias ou quitação</strong></div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#6E2C00">9</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">💰 Verifica o tipo de pagamento e confirma se o risco classificado comporta o pagamento solicitado</div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#6E2C00">10</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">💰 Verifica documentação suporte e informações complementares: <strong>centro de custo, conta contábil, vencimento e CNPJ</strong></div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#6E2C00">11</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">💰 Aprova no sistema Projuris e direciona ao <strong>"User Integração"</strong> — Projuris parametrizado com SAP para lançamento do pagamento</div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#6E2C00">12</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">💰 Revisa se a provisão está correta antes da efetivação do pagamento final</div></div></div>
+  </div>
+</div>
+
+<!-- FASE 7 -->
+<div class="phase-card" style="border-color:#2E4057;">
+  <div class="phase-header" style="background:#2E4057;" onclick="toggle(&#39;f7&#39;)">
+    <div><div class="phase-label">FASE 7</div><div class="phase-title">Arquivamento</div></div>
+    <div class="chevron" id="chev-f7">▼</div>
+  </div>
+  <div class="phase-body" id="f7" style="background:#D5DBDB;">
+    <div class="note-box note-blue">ℹ️ Após trânsito em julgado: aguardar <strong>1 ano</strong> (6 meses ativo + 6 meses baixa provisória) antes do encerramento, salvo se não houver pendência contábil.</div>
+    <div class="step step-normal"><div class="step-num" style="background:#2E4057">1</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Verifica se o processo está apto ao encerramento: risco em remoto, bloqueio no sistema comercial retirado, obrigações de fazer cumpridas e pagamento realizado (voluntário até R$ 3k; ou 12 meses de trânsito em julgado se acima de R$ 3k)</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#2E4057">2</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Confirma quitação integral ou homologação do acordo, <strong>peticiona nos autos comprovando</strong> e solicita o arquivamento formal</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#2E4057">3</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Solicita o encerramento do processo no Projuris</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#2E4057">4</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Arquiva formalmente o processo no sistema jurídico</div></div></div>
+  </div>
+</div>
+
+<!-- OBRIGAÇÕES CONTÍNUAS -->
+<div class="phase-card" style="border-color:#1A4731;">
+  <div class="phase-header" style="background:#1A4731;" onclick="toggle(&#39;fc&#39;)">
+    <div><div class="phase-label">OBRIGAÇÕES CONTÍNUAS</div><div class="phase-title">Manutenção do Sistema — Durante toda a vida do processo</div></div>
+    <div class="chevron" id="chev-fc">▼</div>
+  </div>
+  <div class="phase-body" id="fc" style="background:#D5F5E3;">
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">1</div><div class="step-content"><span class="step-actor a-ctrl">Controladoria Jurídica</span><div class="step-text">Preenche a <strong>natureza do processo</strong> no cadastro: Cível, Consumidor, Regulatório, Ambiental, Tributário ou Recuperação de Crédito</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">2</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Preenche a <strong>causa raiz</strong> do processo — dado estratégico para análise de padrões de litigância</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">3</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Preenche o valor total dos pedidos iniciais do autor</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">4</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Preenche o valor total fixado na sentença após julgamento de 1ª instância</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">5</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Atualiza a fase do processo a cada nova instância: sentença → recurso → TJ → STJ/STF → execução</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">6</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Mantém os andamentos processuais atualizados no sistema a cada movimentação relevante</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">7</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">Preenche justificativa de ausência de provisão quando aplicável, conforme manual interno da companhia</div></div></div>
+    <div class="step step-financial"><div class="step-num" style="background:#1A4731">8</div><div class="step-content"><span class="step-actor a-escr">Escritório</span><div class="step-text">💰 Informa a perda real do processo nas fases de instrução e sentença (preenchimento manual) — no acórdão o sistema puxa automaticamente da provisão</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">9</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Monitora <strong>diariamente</strong> o Projuris: verifica novas decisões de mérito, alterações de fase e necessidade de alteração do risco — <strong>possível, remoto ou provável (CPC 25)</strong></div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">10</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Monitora o preenchimento da perda real pelo Escritório, realiza gestão dos processos relevantes e aciona gerência e diretoria nos casos estratégicos</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">11</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Aprova ou não a realização de acordo com base na análise de cada caso, considerando risco, valor e estratégia processual</div></div></div>
+    <div class="step step-normal"><div class="step-num" style="background:#1A4731">12</div><div class="step-content"><span class="step-actor a-adv">Advogado Interno</span><div class="step-text">Fiscaliza continuamente o cumprimento de todas as obrigações de preenchimento pelo Escritório</div></div></div>
+  </div>
+</div>
+
+<div class="footer-alert">
+  ⚠️ LACUNA IDENTIFICADA — A revisão do recurso pelo Advogado Interno antes do protocolo (Fase 3) já é realizada nos casos estratégicos. Meta: expandir para todos os casos não estratégicos, com impacto direto na qualidade das peças e mitigação de risco do contencioso.
+</div>
+
+</div>
+<script>
+const ALL=['f0','f0b','f1a','f1b_conc','f1c_def','f1d_per','f1e','f2','f2b','f2c','f2d','f2e','f3','f4','f5','f6','f7','fc'];
+function toggle(id){const b=document.getElementById(id),c=document.getElementById('chev-'+id);if(!b)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);c.classList.toggle('open',!o);}
+function expandAll(){ALL.forEach(id=>{const b=document.getElementById(id),c=document.getElementById('chev-'+id);if(b)b.classList.add('open');if(c)c.classList.add('open');});}
+function collapseAll(){ALL.forEach(id=>{const b=document.getElementById(id),c=document.getElementById('chev-'+id);if(b)b.classList.remove('open');if(c)c.classList.remove('open');});}
+</script>
+
+
+</body></html>
